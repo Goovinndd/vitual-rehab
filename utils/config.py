@@ -1,0 +1,109 @@
+import mediapipe as mp
+
+KEYPOINT_MAP = {
+    'NOSE': 0,
+    'LEFT_EYE_INNER': 1,
+    'LEFT_EYE': 2,
+    'LEFT_EYE_OUTER': 3,
+    'RIGHT_EYE_INNER': 4,
+    'RIGHT_EYE': 5,
+    'RIGHT_EYE_OUTER': 6,
+    'LEFT_EAR': 7,
+    'RIGHT_EAR': 8,
+    'MOUTH_LEFT': 9,
+    'MOUTH_RIGHT': 10,
+    'LEFT_SHOULDER': 11,
+    'RIGHT_SHOULDER': 12,
+    'LEFT_ELBOW': 13,
+    'RIGHT_ELBOW': 14,
+    'LEFT_WRIST': 15,
+    'RIGHT_WRIST': 16,
+    'LEFT_PINKY': 17,
+    'RIGHT_PINKY': 18,
+    'LEFT_INDEX': 19,
+    'RIGHT_INDEX': 20,
+    'LEFT_THUMB': 21,
+    'RIGHT_THUMB': 22,
+    'LEFT_HIP': 23,
+    'RIGHT_HIP': 24,
+    'LEFT_KNEE': 25,
+    'RIGHT_KNEE': 26,
+    'LEFT_ANKLE': 27,
+    'RIGHT_ANKLE': 28,
+    'LEFT_HEEL': 29,
+    'RIGHT_HEEL': 30,
+    'LEFT_FOOT_INDEX': 31,
+    'RIGHT_FOOT_INDEX': 32
+}
+
+EXERCISE_CONFIG = {
+    'squat': {
+        'FEATURES': {
+            'LEFT_HIP': {
+                'keypoints': [
+                    'LEFT_KNEE',
+                    'LEFT_HIP',
+                    'LEFT_SHOULDER'
+                ],
+                'weight': 3
+            },
+            'RIGHT_HIP': {
+                'keypoints': [
+                    'RIGHT_KNEE',
+                    'RIGHT_HIP',
+                    'RIGHT_SHOULDER'
+                ],
+                'weight': 3
+            },
+            'LEFT_KNEE': {
+                'keypoints': [
+                    'LEFT_HIP',
+                    'LEFT_KNEE',
+                    'LEFT_ANKLE'
+                ],
+                'weight': 2
+            },
+            'RIGHT_KNEE': {
+                'keypoints': [
+                    'RIGHT_HIP',
+                    'RIGHT_KNEE',
+                    'RIGHT_ANKLE'
+                ],
+                'weight': 2
+            }
+        },
+        'REP_LOGIC': {
+            'PRIMARY_FEATURES': [
+                'LEFT_HIP',
+                'RIGHT_HIP'
+            ],
+            'REP_STRATEGY': 'average',
+            'UP_THRESHOLD': 165,
+            'DOWN_THRESHOLD': 70,
+            'NAME': 'Squat'
+        },
+        'FORM_RULES': []
+    },
+    'bicep_curl': {
+        'FEATURES': {
+            'LELBOW': {
+                'keypoints': [
+                    'LEFT_SHOULDER',
+                    'LEFT_ELBOW',
+                    'LEFT_WRIST'
+                ],
+                'weight': 5
+            }
+        },
+        'REP_LOGIC': {
+            'PRIMARY_FEATURES': [
+                'LELBOW'
+            ],
+            'REP_STRATEGY': 'average',
+            'UP_THRESHOLD': 140,
+            'DOWN_THRESHOLD': 30,
+            'NAME': 'Bicep Curl'
+        },
+        'FORM_RULES': []
+    }
+}
